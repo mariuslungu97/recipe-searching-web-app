@@ -48,3 +48,6 @@ elements.resultsPagination.addEventListener('click', e=> {
     }
 });
 
+// const r = new Recipe(35382);
+// r.getRecipe();
+// console.log(r);

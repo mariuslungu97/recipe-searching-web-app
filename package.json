@@ -1,0 +1,22 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariuslungu97/recipe-searching-web-app.git"
+  },
+  "author": "Marius Lungu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mariuslungu97/recipe-searching-web-app/issues"
+  },
+  "homepage": "https://github.com/mariuslungu97/recipe-searching-web-app#readme",
+  "devDependencies": {
+    "webpack": "^4.20.1"
+  }
+}

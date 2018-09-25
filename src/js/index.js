@@ -34,8 +34,6 @@ const state = {};
     // Store the object into the state
 }
 
-
-
 elements.searchForm.addEventListener('submit', e=> {
     e.preventDefault();
     controlSearch();

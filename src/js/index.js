@@ -1,5 +1,5 @@
 import Search from './models/Search';
-import {elements} from './views/base';
+import {elements, renderLoader, clearLoader} from './views/base';
 import * as searchView from './views/searchView';
 
 /*
@@ -21,11 +21,12 @@ const state = {};
         //3) Prepare the view for results
         searchView.clearInput();
         searchView.clearResults();
+        renderLoader(elements.searchRes);
         await state.search.getResults();
         //4) Render the data to the UI
         searchView.renderResults(state.search.result);
         //5) Clear input
-        
+        clearLoader();
 
     }
     // Store the object into the state
@@ -34,5 +35,14 @@ const state = {};
 elements.searchForm.addEventListener('submit', e=> {
     e.preventDefault();
     controlSearch();
+});
+
+elements.resultsPagination.addEventListener('click', e=> {
+    let btn = e.target.closest('.btn-inline');
+    if(btn) {
+        searchView.clearResults();
+        const goToPage = parseInt(btn.dataset.goto);
+        searchView.renderResults(state.search.result,goToPage);
+    }
 });
 

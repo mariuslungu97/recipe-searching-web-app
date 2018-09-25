@@ -11,7 +11,7 @@ export default class Search {
         try {
             const result = await axios(`${proxy}http://www.food2fork.com/api/search?key=${key}&q=${this.query}`);
             this.result = result.data.recipes;
-            // console.log(this.result);
+            
         } catch(err) {
             console.error(err);
             alert(err);

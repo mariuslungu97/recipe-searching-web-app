@@ -1,6 +1,7 @@
 import Search from './models/Search';
 import {elements, renderLoader, clearLoader} from './views/base';
 import * as searchView from './views/searchView';
+import Recipe from './models/Recipe';
 
 /*
     Global state:
@@ -24,6 +25,7 @@ const state = {};
         renderLoader(elements.searchRes);
         await state.search.getResults();
         //4) Render the data to the UI
+        console.log(state.search.result);
         searchView.renderResults(state.search.result);
         //5) Clear input
         clearLoader();
@@ -31,6 +33,8 @@ const state = {};
     }
     // Store the object into the state
 }
+
+
 
 elements.searchForm.addEventListener('submit', e=> {
     e.preventDefault();

@@ -3,6 +3,7 @@ import {elements, renderLoader, clearLoader} from './views/base';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import Recipe from './models/Recipe';
+import List from './models/Recipe';
 
 /*
     Global state:
@@ -86,3 +87,19 @@ const controlRecipe = async () => {
 };
 
 ['hashchange'].forEach(event => window.addEventListener(event,controlRecipe));
+
+elements.recipe.addEventListener('click',e => {
+    console.log('a');
+    if(e.target.matches('.btn-decrease, .btn-decrease *')) {
+        console.log('decrease');
+        if(state.recipe.servings > 1) {
+            state.recipe.updateServings('dec');
+            recipeView.updateServingsIngredients(state.recipe);
+        }
+    } else if(e.target.matches('.btn-increase, .btn-increase *')) {
+        console.log('increase');
+        state.recipe.updateServings('inc');
+        recipeView.updateServingsIngredients(state.recipe);
+
+    }
+});

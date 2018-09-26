@@ -28,8 +28,8 @@ const state = {};
         try {
             await state.search.getResults();
             //4) Render the data to the UI
-            console.log(state.search.result);
             searchView.renderResults(state.search.result);
+            
             //5) Clear input
             clearLoader();
         }catch(err) {
@@ -59,8 +59,10 @@ const controlRecipe = async () => {
     const id = window.location.hash.replace('#','');
     if(id) {
         //Prepare UI for changes
-        renderLoader(elements.recipe);
         recipeView.clearRecipe();
+        renderLoader(elements.recipe);
+
+        if(state.search) recipeView.highlightSelected(id);
         //Create a new recipe object
         state.recipe = new Recipe(id);
         //Get recipe data

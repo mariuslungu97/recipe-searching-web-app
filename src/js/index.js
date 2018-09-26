@@ -2,8 +2,9 @@ import Search from './models/Search';
 import {elements, renderLoader, clearLoader} from './views/base';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
+import * as listView from './views/listView';
 import Recipe from './models/Recipe';
-import List from './models/Recipe';
+import List from './models/List';
 
 /*
     Global state:
@@ -13,7 +14,6 @@ import List from './models/Recipe';
     -current recipe
 */
 const state = {};
-
  const controlSearch = async () => {
     //1) Get the query from view
     const query = searchView.getInput();
@@ -86,10 +86,35 @@ const controlRecipe = async () => {
     }
 };
 
+
+
 ['hashchange'].forEach(event => window.addEventListener(event,controlRecipe));
 
+const controlList = () => {
+    //Create new list if there is no one yet
+    if(!state.list) state.list = new List();
+    //Add each ingredient to the list
+    state.recipe.ingredients.forEach(el => {
+        const item = state.list.addItem(el.count,el.unit,el.ingredient);
+        listView.renderItem(item);
+    });
+}
+
+elements.shoppingList.addEventListener('click', e=> {
+    const id = e.target.closest('.shopping__item').dataset.itemid;
+    
+    if(e.target.matches('.shopping__delete, .shopping__delete *')) {
+        console.log('it registers');
+        state.list.deleteItem(id);
+        listView.deleteItem(id);
+    } else if(e.target.matches('.shopping__count-value')) {
+        console.log('affirmative');
+        const val = parseFloat(e.target.value,10);
+        state.list.updateCount(id,val);
+    }
+});
+
 elements.recipe.addEventListener('click',e => {
-    console.log('a');
     if(e.target.matches('.btn-decrease, .btn-decrease *')) {
         console.log('decrease');
         if(state.recipe.servings > 1) {
@@ -101,5 +126,8 @@ elements.recipe.addEventListener('click',e => {
         state.recipe.updateServings('inc');
         recipeView.updateServingsIngredients(state.recipe);
 
+    } else if(e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+        controlList();
     }
 });
+

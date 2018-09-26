@@ -33,6 +33,7 @@ export default class Recipe {
         //Arrays containing the units we want to replace
         const unitsLong = ['tablespoons','tablespoon','ounces','ounce','teaspoons','teaspoon','cups','pounds'];
         const unitsShort = ['tbsp','tbsp','oz','oz','tsp','tsp','cup','pound'];
+        const units = [...unitsShort,'kg','g'];
 
         const newIngredients = this.ingredients.map(el => {
             //1) transform the string to lowercase
@@ -44,9 +45,10 @@ export default class Recipe {
             //3) remove the parantheses and its content using RegEx
             ingredient = ingredient.replace(/ *\([^)]*\) */g, " ");
             //4) transform the string into an array
-            const arrIng = ingredient.slice(' ');
+            const arrIng = ingredient.split(' ');
+           
             //5) find the index which contains the unit using ES6 method findIndex and ES8 method includes
-            const unitIndex = arrIng.findIndex(el => unitsShort.includes(el));
+            const unitIndex = arrIng.findIndex(el => units.includes(el));
             
             let objIng;
             if(unitIndex > -1) {

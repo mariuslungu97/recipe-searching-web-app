@@ -16,7 +16,7 @@ import Likes from './models/Likes';
     -current recipe
 */
 const state = {};
-window.state = state;
+
  const controlSearch = async () => {
     //1) Get the query from view
     const query = searchView.getInput();
@@ -97,9 +97,7 @@ const controlList = () => {
         listView.renderItem(item);
     });
 }
-//JUST FOR TESTING
-state.likes = new Likes();
-//TESTING
+
 const controlLikes = () => {
     
     if(!state.likes) {
@@ -118,6 +116,12 @@ const controlLikes = () => {
     likeView.toggleLikeMenu(state.likes.getNumLikes());
 }
 
+window.addEventListener('load', () => {
+    state.likes = new Likes();
+    state.likes.readStorage();
+    likeView.toggleLikeMenu(state.likes.getNumLikes());
+    state.likes.likes.forEach(el => likeView.renderLike(el));
+});
 
 ['hashchange'].forEach(event => window.addEventListener(event,controlRecipe));
 

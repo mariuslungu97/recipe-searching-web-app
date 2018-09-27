@@ -7,7 +7,7 @@ export const clearResults = () => {
     elements.searchResList.innerHTML = '';
     elements.resultsPagination.innerHTML = '';
 }
-const shortenTitle = (title,limit = 17) => {
+export const shortenTitle = (title,limit = 17) => {
     if(title.length > limit) {
         let newTitle = [];
         title.split(' ').reduce((acc, cur) => {

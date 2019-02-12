@@ -22,19 +22,17 @@ const state = {};
     const query = searchView.getInput();
     
     if(query) {
-        //2) Create a new search object
         state.search = new Search(query);
-        //3) Prepare the view for results
+
         searchView.clearInput();
         searchView.clearResults();
         renderLoader(elements.searchRes);
 
         try {
             await state.search.getResults();
-            //4) Render the data to the UI
-            searchView.renderResults(state.search.result);
-            
-            //5) Clear input
+
+            searchView.renderResults(state.search.result);     
+
             clearLoader();
         }catch(err) {
             clearLoader();
@@ -62,22 +60,22 @@ const controlRecipe = async () => {
     //Get ID from URL ( this will grab the url hash only if it is changed);
     const id = window.location.hash.replace('#','');
     if(id) {
-        //Prepare UI for changes
+
         recipeView.clearRecipe();
         renderLoader(elements.recipe);
 
         if(state.search) recipeView.highlightSelected(id);
-        //Create a new recipe object
+
         state.recipe = new Recipe(id);
         //Get recipe data
 
         try {
             await state.recipe.getRecipe();
             state.recipe.parseIngredients();
-            //Calculate the servings
+
             state.recipe.calcTime();
             state.recipe.calcServings();
-            //Render the recipe
+
             clearLoader();
             recipeView.renderRecipe(state.recipe,state.likes.isLiked(id));
         } catch(err) {
@@ -91,7 +89,7 @@ const controlRecipe = async () => {
 const controlList = () => {
     //Create new list if there is no one yet
     if(!state.list) state.list = new List();
-    //Add each ingredient to the list
+
     state.recipe.ingredients.forEach(el => {
         const item = state.list.addItem(el.count,el.unit,el.ingredient);
         listView.renderItem(item);

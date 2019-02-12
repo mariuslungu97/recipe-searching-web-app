@@ -36,18 +36,17 @@ export default class Recipe {
         const units = [...unitsShort,'kg','g'];
 
         const newIngredients = this.ingredients.map(el => {
-            //1) transform the string to lowercase
+
             let ingredient = el.toLowerCase();
-            //2) search for long units and replace them with short units
+
             unitsLong.forEach((unit,i) => {
                 ingredient = ingredient.replace(unit,unitsShort[i]);
             });
-            //3) remove the parantheses and its content using RegEx
+
             ingredient = ingredient.replace(/ *\([^)]*\) */g, " ");
-            //4) transform the string into an array
+
             const arrIng = ingredient.split(' ');
            
-            //5) find the index which contains the unit using ES6 method findIndex and ES8 method includes
             const unitIndex = arrIng.findIndex(el => units.includes(el));
             
             let objIng;

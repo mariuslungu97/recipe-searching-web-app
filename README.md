@@ -1,9 +1,9 @@
 # recipe-searching-web-app
 
-## Live Website Link:
+### Live Website Link:
 https://festive-noyce-baf968.netlify.com/#47746
 
-A recipe searching web application created using Javascript ES6+, HTML and CSS as a front-end infrastructure.
+Description: A recipe searching web application created using Javascript ES6+, HTML and CSS as a front-end infrastructure.
 
 NPM has been also used to install Webpack, a module bundler used to compile all the Javascript modules in a single file, and to setup a "dev" environment for live-testing. 
 
